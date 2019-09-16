@@ -1,18 +1,3 @@
-<html>
-  <head>
-     <title>Connecting MySQL Server</title>
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-  <body>
- <form method="POST">
-    <input type="username" name="username" placeholder="enter your username"><br><br>
-    <input type="password" name="password" placeholder="enter your password"><br><br>
-    <input type="submit" name="submit">
-
-  </form><br>
-    
-  </body>
-</html>
 
 <?php 
   
@@ -64,8 +49,6 @@
 
       //we store user logged in user details in sessions(temporary)
       
-
-      header("echo("Hello")");
 
 /*      echo "$role  $username $user_id";
 */    }
