@@ -5,10 +5,10 @@
 
   if (isset($_POST['login'])) {
     # code...
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
 
     //above query confirms if user inputs are the ones in db
 
@@ -29,10 +29,10 @@
       //create a session
       //what is the role of logged in person
       $row = mysqli_fetch_array($response);
-      $username = $row['username'];
-      // save username and id to the session
+      $email = $row['email'];
+      // save email and id to the session
       $_SESSION['id'] = $id;
-      $_SESSION['username'] = $username;
+      $_SESSION['email'] = $email;
     }else {
       echo "<br> Wrong Credentials. Please Create an account";
       exit();
@@ -41,15 +41,13 @@
 
 if (isset($_POST['signup'])) {
 
-    $username = mysqli_real_escape_string($connection, $_POST['username']);
     $password = mysqli_real_escape_string($connection, $_POST['password']);
-    $password2 = mysqli_real_escape_string($connection, $_POST['password2']);
     $email = mysqli_real_escape_string($connection, $_POST['email']);
     
-    $vars = array('password','password2', 'username', 'email');
+    $vars = array($password, $email);
     $verified = TRUE;
     foreach($vars as $v) {
-       if(!isset($_POST[$v]) || empty($_POST[$v])) {
+       if(!isset($v) || empty($v)) {
           $verified = FALSE;
        }
     }
@@ -58,12 +56,14 @@ if (isset($_POST['signup'])) {
       exit();
     }
     
-    if ($password != $password2) {
-      echo "Passwords do not match!";
+    $check = mysqli_num_rows(mysqli_query($connection, "SELECT * from user where email = '$email'"));
+
+    if ($check > 0) {
+      echo "That email is being used by another user";
       exit();
     }
-    
-    $sql = "INSERT into user (username, email, password) values ('$username', '$email', '$password')";
+
+    $sql = "INSERT into user (email, password) values ($email', '$password')";
     
     $run_sql = mysqli_query($connection, $sql);
     if ($run_sql) {
