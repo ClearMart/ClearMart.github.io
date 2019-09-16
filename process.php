@@ -1,13 +1,12 @@
 <?php
   // start the session
   session_start();
+    $connection = mysqli_connect("remotemysql.com:3306","fsuWU0m3JX","FPvwWXbQvU","fsuWU0m3JX");
 
   if (isset($_POST['login'])) {
     # code...
     $username = $_POST['username'];
     $password = $_POST['password'];
-
-    $connection = mysqli_connect("remotemysql.com:3306","fsuWU0m3JX","FPvwWXbQvU","fsuWU0m3JX");
 
     $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
 
@@ -32,7 +31,7 @@
       $row = mysqli_fetch_array($response);
       $username = $row['username'];
       // save username and id to the session
-      $_SESSION['id'] = $id
+      $_SESSION['id'] = $id;
       $_SESSION['username'] = $username;
     }else {
       echo "<br> Wrong Credentials. Please Create an account";
@@ -46,22 +45,29 @@ if (isset($_POST['signup'])) {
     $password = mysqli_real_escape_string($connection, $_POST['password']);
     $password2 = mysqli_real_escape_string($connection, $_POST['password2']);
     $email = mysqli_real_escape_string($connection, $_POST['email']);
-
-    if ($username = '' and $password = '' and $email = '') {
-      echo "You must fill in all the fields!";
+    
+    $vars = array('password','password2', 'username', 'email');
+    $verified = TRUE;
+    foreach($vars as $v) {
+       if(!isset($_POST[$v]) || empty($_POST[$v])) {
+          $verified = FALSE;
+       }
+    }
+    if(!$verified) {
+      echo "Ensure all fields are filled";
       exit();
-    } else {
-      if ($password != $password2) {
-        echo "Passwords do not match!";
-        exit();
-      } else {
-        $sql = "INSERT into user (username, email, password) values ('$username', '$email', '$password')";
-
-        $run_sql = mysqli_query($connection, $sql);
-        if ($run_sql) {
-          echo "Sign Up Successful";
-        }
-      }
+    }
+    
+    if ($password != $password2) {
+      echo "Passwords do not match!";
+      exit();
+    }
+    
+    $sql = "INSERT into user (username, email, password) values ('$username', '$email', '$password')";
+    
+    $run_sql = mysqli_query($connection, $sql);
+    if ($run_sql) {
+      echo "Sign Up Successful";
     }
 }
 ?>
