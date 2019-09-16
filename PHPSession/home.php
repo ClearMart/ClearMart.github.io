@@ -7,8 +7,8 @@
 <head></head>
 
 <body>
-
-<p>Welcome to home page</p>
+<p>You are now logged in.</p>
+<h1> Welcome to ClearMart! </h1>
 <p><a href="auth/logout.php">Logout</a>
 
 
