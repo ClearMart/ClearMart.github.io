@@ -63,7 +63,7 @@ if (isset($_POST['signup'])) {
       exit();
     }
 
-    $sql = "INSERT into user (email, password) values ($email', '$password')";
+    $sql = "INSERT into user (email, password) values ('$email', '$password')";
     
     $run_sql = mysqli_query($connection, $sql);
     if ($run_sql) {
