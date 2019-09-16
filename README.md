@@ -1,1 +1,2 @@
 # ClearMart.github.io
+The ClearMart repo branch has been updated by CoderFemi with PHP Session scripting. Further modifications to be done to the PHP files. HTML page is awaited from frontend before integrating with the PHP files.
