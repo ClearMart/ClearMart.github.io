@@ -9,9 +9,9 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $connection = mysqli_connect("localhost","root","","test");
+    $connection = mysqli_connect("remotemysql.com:3306","fsuWU0m3JX","FPvwWXbQvU","fsuWU0m3JX");
 
-    $sql = "SELECT * FROM tbl_users WHERE username = '$username' AND password = '$password'";
+    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
 
     //above query confirms if user inputs are the ones in db
 
