@@ -1,11 +1,9 @@
-<?php 
-  
-  if (empty($_POST)) {
+<?php
+  // start the session
+  session_start();
+
+  if (isset($_POST['login'])) {
     # code...
-  }
-
-  else {
-
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -24,38 +22,46 @@
     if ($num_rows < 1) {
       echo "<br> Wrong credentials, Please create account";
       exit();
-    }
-
-    elseif ($num_rows > 1) { //theres a double registration
-
+    } elseif ($num_rows > 1) { //theres a double registration
       echo "Error, Contact admin";
       exit();
-
-    }
-
-    elseif ($num_rows==1) 
-    {//Right credentials redirect...to insertCar.php
+    } elseif ($num_rows==1) {
+      //Right credentials redirect...to insertCar.php
       //create a session
       //what is the role of logged in person
       $row = mysqli_fetch_array($response);
-      $username = $row[3];
-      $role = $row[4];
-
-      session_start();
+      $username = $row['username'];
+      // save username and id to the session
+      $_SESSION['id'] = $id
       $_SESSION['username'] = $username;
-      $_SESSION['role'] = $role;
-
-      //we store user logged in user details in sessions(temporary)
-      
-
-/*      echo "$role  $username $user_id";
-*/    }
-
-    else{
+    }else {
       echo "<br> Wrong Credentials. Please Create an account";
       exit();
     }
+}
 
-  }
+if (isset($_POST['signup'])) {
 
- ?>
+    $username = mysqli_real_escape_string($connection, $_POST['username']);
+    $password = mysqli_real_escape_string($connection, $_POST['password']);
+    $password2 = mysqli_real_escape_string($connection, $_POST['password2']);
+    $email = mysqli_real_escape_string($connection, $_POST['email']);
+
+    if ($username = '' and $password = '' and $email = '') {
+      echo "You must fill in all the fields!";
+      exit();
+    } else {
+      if ($password != $password2) {
+        echo "Passwords do not match!";
+        exit();
+      } else {
+        $sql = "INSERT into user (username, email, password) values ('$username', '$email', '$password')";
+
+        $run_sql = mysqli_query($connection, $sql);
+        if ($run_sql) {
+          echo "Sign Up Successful";
+        }
+      }
+    }
+}
+?>
