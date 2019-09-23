@@ -1,0 +1,7 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Name=SoapUI 5.5.0
+Exec="/home/kelvin/SmartBear/SoapUI-5.5.0/bin/SoapUI-5.5.0" 
+Comment=Install Desktop ShortCut
+Icon=/home/kelvin/SmartBear/SoapUI-5.5.0/.install4j/SoapUI-5.5.0.png
